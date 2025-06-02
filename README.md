@@ -85,22 +85,62 @@ The optimized pipeline achieves excellent performance metrics:
 
 ### Installation
 
+First prepare your environment. 
+```bash
+# Install Conda for virtual environment management
+wget -c 'https://repo.anaconda.com/archive/Anaconda3-2023.09-0-Linux-x86_64.sh' -P ~/Downloads
+bash ~/Downloads/Anaconda3-2023.09-0-Linux-x86_64.sh
+
+# If you use shell or dash, change it to bash
+exec bash
+# Add conda to PATH
+export PATH=~/anaconda3/bin:$PATH
+source ~/.bashrc
+conda --version # conda 23.7.4
+
+# Install Git
+sudo apt update
+sudo apt install git
+git --version
+
+# Ensure you have NVIDIA drivers and CUDA toolkit installed
+nvidia-smi
+nvcc -V
+
+# If you need to delete NVIDIA drivers and CUDA toolkit
+sudo apt remove --purge nvidia-cuda-toolkit
+sudo rm -rf /usr/local/cuda*
+
+# Install NVIDIA drivers and CUDA toolkit
+sudo apt install software-properties-common
+sudo apt install ubuntu-drivers-common
+sudo add-apt-repository ppa:graphics-drivers/ppa
+sudo apt update
+ubuntu-drivers devices  # this may take a while
+sudo apt install nvidia-driver-XXX  # replace XXX with the recommended driver version
+# If you encounter issues, you can try: https://gist.github.com/MihailCosmin/affa6b1b71b43787e9228c25fe15aeba
+
+# Create a new conda environment
+conda create -n llm-acceleration python=3.12 -y
+conda activate llm-acceleration
+```
+Install the required packages in the environment:
 ```bash
 # Uninstall existing packages to avoid conflicts
-!pip uninstall torch torchvision torchaudio transformers vllm -y
-!pip cache purge
+pip uninstall torch torchvision torchaudio transformers vllm -y
+pip cache purge
 
 # Install PyTorch 2.70 with CUDA 12.6 support
-!pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126
 
 # Install required packages
-!pip install --upgrade transformers vllm datasets tqdm
-!pip install -U gptqmodel --no-build-isolation -v
-!pip install optimum
-!pip install --force-reinstall triton==3.2.0
+pip install --upgrade transformers vllm datasets tqdm
+pip install -U gptqmodel --no-build-isolation -v
+pip install optimum
+pip install --force-reinstall triton==3.2.0
 
 # Login to Hugging Face (replace with your token)
-!huggingface-cli login --token your_huggingface_token
+huggingface-cli login --token your_huggingface_token
 ```
 
 ### Running the Pipeline
