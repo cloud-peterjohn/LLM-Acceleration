@@ -119,6 +119,7 @@ def main():
     torch.cuda.empty_cache()
     vllm_model = LLM(
         model=model_name,
+        dtype="float16",
         kv_cache_dtype="auto",  # only supported in Amper GPU
         trust_remote_code=True,
         gpu_memory_utilization=0.9,
