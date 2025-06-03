@@ -79,8 +79,8 @@ The optimized models are available on Hugging Face:
 
 The optimized pipeline achieves excellent performance metrics on T4 GPU in Colab:
 
-- **Perplexity (PPL)**: 11.22 (on WikiText-2-raw-v1 test set)
-- **Throughput**: 80.36 tokens/second
+- **Perplexity (PPL)**: 11.217229843139648 (on WikiText-2-raw-v1 test set)
+- **Throughput**: 80.36136051159993 tokens/second
 
 ## Usage
 
@@ -90,6 +90,8 @@ The optimized pipeline achieves excellent performance metrics on T4 GPU in Colab
 Nothing to install, just open the notebook `vllm-infer.ipynb` and run it. The environment is already set up with all dependencies installed.
 
 #### Run Locally
+If you want to run the notebooks locally, you must have CUDA 12.6+ and NVIDIA drivers installed, along with Python 3.12+ and PyTorch 2.70. The following steps will guide you through setting up the environment and installing the required packages.
+
 First prepare your environment. 
 ```bash
 # Install Conda for virtual environment management
@@ -108,35 +110,10 @@ sudo apt update
 sudo apt install git
 git --version
 
-# Ensure you have NVIDIA drivers and CUDA toolkit installed
+# Ensure you have NVIDIA drivers and CUDA toolkit with version 12.6+ installed
 nvidia-smi
-nvcc -V
-
-# If you installed CUDA, but nvcc is not found, you may need to add it to your PATH
-ls /usr/local/
-export PATH=/usr/local/cuda-12.2/bin:$PATH  # Adjust the version as needed
-export LD_LIBRARY_PATH=/usr/local/cuda-12.2/lib64:$LD_LIBRARY_PATH  # Adjust the version as needed
+nvcc -V # at least 12.6
 which nvcc
-
-# If you need to delete NVIDIA drivers and CUDA toolkit
-sudo apt remove --purge nvidia-cuda-toolkit
-sudo rm -rf /usr/local/cuda*
-
-# Install NVIDIA drivers and CUDA toolkit if needed
-## CUDA Toolkit (if not installed yet…)
-wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-ubuntu2204.pin
-sudo mv cuda-ubuntu2204.pin /etc/apt/preferences.d/cuda-repository-pin-600
-wget https://developer.download.nvidia.com/compute/cuda/12.2.0/local_installers/cuda-repo-ubuntu2204-12-2-local_12.2.0-535.54.03-1_amd64.deb
-sudo dpkg -i cuda-repo-ubuntu2204-12-2-local_12.2.0-535.54.03-1_amd64.deb
-sudo cp /var/cuda-repo-ubuntu2204-12-2-local/cuda-*-keyring.gpg /usr/share/keyrings/
-sudo apt-get update
-sudo apt-get -y install cuda-toolkit-12-2
-vim ~/.bashrc
-export CUDA_HOME=/usr/local/cuda-12.2/
-export PATH=$PATH:$CUDA_HOME/bin
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CUDA_HOME/lib64
-source ~/.bashrc
-nvcc --version
 # If you encounter issues, you can try: https://gist.github.com/MihailCosmin/affa6b1b71b43787e9228c25fe15aeba
 
 # Create a new conda environment
@@ -157,11 +134,9 @@ pip cache purge
 conda install gxx_linux-64 -y
 conda install -c conda-forge libstdcxx-ng
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126
-# pip install torch==2.5.1 torchvision==0.20.1 torchaudio==2.5.1 --index-url https://download.pytorch.org/whl/cu121
 
 # Install required packages
 pip install --upgrade transformers vllm datasets tqdm
-# pip install --upgrade transformers vllm==v0.8.5.post1 datasets tqdm
 pip install -U gptqmodel --no-build-isolation -v
 pip install optimum
 pip install --force-reinstall triton==3.2.0
@@ -184,9 +159,18 @@ Then you can run the notebooks in the environment.
 2. **Quantization**: Run `gptq-quant.ipynb` to quantize both 3B and 1B models
 3. **Inference**: Use `vllm-infer.ipynb` for optimized inference with all acceleration techniques
 
+If you only want to test the speedup of inference throughput, you can skip the first two steps and directly run `vllm-infer.ipynb` with pre-quantized models on Huggingface.
+
+## Platforms
+**Tesla T4 GPU**: NVIDIA Tesla T4 GPU is limited to 16GB memory and 7.5 computation capability, which is unsuitable for Flash Attention V2, VLLM V1, bf16, and fp8. So we have to use Xformers, VLLM V0, fp16.
+If you want to use Flash Attention V2, you should use Ampere (A100), Ada (RTX 4090), or Hopper (H100) series GPUs.
+If you want to use bf16, your GPU should have Tensor Core and support Brain Float 16 (bf16), such as Hopper, Ampere, Volta, Ada, L40 series GPUs or RTX A5000+. 
+If you want to use fp8, you GPU should have 8.0+ computation capability, such as Hopper, Ampere, Ada Lovelace, Blackwell series GPUs.
+If you want to use Speculative Decoding, you should use GPUs with larger memory than T4, which depends on the `num_speculative_tokens` parameter.
+
 ## Related Projects
 - [Llama-3.2-3B-Instruct](https://huggingface.co/meta-llama/Llama-3.2-3B-Instruct)
+- [Llama-3.2-1B-Instruct](https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct)
 - [GPTQ](https://github.com/ModelCloud/GPTQModel.git)
 - [VLLM](https://docs.vllm.ai/en/stable/)
 - [QLoRA](https://github.com/artidoro/qlora.git)
-
