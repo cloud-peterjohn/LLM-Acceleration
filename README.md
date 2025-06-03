@@ -58,6 +58,7 @@ After quantization, the models are saved as [Llama3.2-3B-Instruct-quantized](htt
     - Chunked Prefill: Optimizes long sequence processing
     - Prefix Caching: Reuses computation for similar prefixes
     - Compilation: CUDA graph and Inductor optimizations for kernel fusion
+    - Paged Attention: optimizes memory usage by storing key-value caches in separate blocks, enabling efficient large-scale inference with reduced memory overhead.
 
 ## 🥳 Model Repositories
 
