@@ -79,8 +79,8 @@ The optimized models are available on Hugging Face:
 
 The optimized pipeline achieves excellent performance metrics on T4 GPU in Colab:
 
-- **Perplexity (PPL)**: 11.217229843139648 (on WikiText-2-raw-v1 test set)
-- **Throughput**: 80.36136051159993 tokens/second
+- Perplexity (PPL): ***11.217229843139648*** (on WikiText-2-raw-v1 test set)
+- Throughput: ***80.36136051159993*** tokens/second
 
 ## 😋 Usage
 
