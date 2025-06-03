@@ -1,11 +1,11 @@
-# LLM-Acceleration
+# 💡 LLM-Acceleration
 Comprehensive Acceleration of Llama-3.2-3B-Instruct with QLoRA Fine-tuning, GPTQ Quantization, VLLM Inference, KV-Cache Quantization, and Speculative Decoding.
 
-## Overview
+## 🥰 Overview
 
 This project implements a comprehensive optimization pipeline for the Llama-3.2-3B-Instruct model, achieving significant improvements in inference efficiency while maintaining model quality. The pipeline combines multiple acceleration techniques including QLoRA fine-tuning, GPTQ quantization, VLLM inference engine, 8-bit KV-cache, and speculative decoding.
 
-## Pipelines
+## 🤩 Pipelines
 
 The optimization pipeline consists of three main stages:
 
@@ -59,7 +59,7 @@ After quantization, the models are saved as [Llama3.2-3B-Instruct-quantized](htt
     - Prefix Caching: Reuses computation for similar prefixes
     - Compilation: CUDA graph and Inductor optimizations for kernel fusion
 
-## Model Repositories
+## 🥳 Model Repositories
 
 The optimized models are available on Hugging Face:
 0. **Base Model**: [meta-llama/Llama-3.2-1B-Instruct](https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct) and [meta-llama/Llama-3.2-3B-Instruct](https://huggingface.co/meta-llama/Llama-3.2-3B-Instruct)
@@ -74,14 +74,14 @@ The optimized models are available on Hugging Face:
 3. **Quantized Draft Model**: [zbyzby/Llama-3.2-1B-Instruct-GPTQ-Quant](https://huggingface.co/zbyzby/Llama-3.2-1B-Instruct-GPTQ-Quant)
    - GPTQ 4-bit quantized Llama-3.2-1B-Instruct for speculative decoding
 
-## Results
+## 😇 Results
 
 The optimized pipeline achieves excellent performance metrics on T4 GPU in Colab:
 
 - **Perplexity (PPL)**: 11.217229843139648 (on WikiText-2-raw-v1 test set)
 - **Throughput**: 80.36136051159993 tokens/second
 
-## Usage
+## 😋 Usage
 
 ### Installation
 
@@ -160,14 +160,14 @@ Then you can run the notebooks in the environment.
 
 If you only want to test the speedup of inference throughput, you can skip the first two steps and directly run `vllm-infer.ipynb` with pre-quantized models on Huggingface.
 
-## Platforms
+## 🥹 Platforms
 - **Tesla T4 GPU**: NVIDIA Tesla T4 GPU is limited to 16GB memory and 7.5 computation capability, which is unsuitable for Flash Attention V2, VLLM V1, bf16, and fp8. So we have to use Xformers, VLLM V0, fp16.
 - If you want to use Flash Attention V2, you should use Ampere (A100), Ada (RTX 4090), or Hopper (H100) series GPUs.
 - If you want to use bf16, your GPU should have Tensor Core and support Brain Float 16 (bf16), such as Hopper, Ampere, Volta, Ada, L40 series GPUs or RTX A5000+. 
 - If you want to use fp8, you GPU should have 8.0+ computation capability, such as Hopper, Ampere, Ada Lovelace, Blackwell series GPUs.
 - If you want to use Speculative Decoding, you should use GPUs with larger memory than T4, which depends on the `num_speculative_tokens` parameter.
 
-## Related Projects
+## 🤣 Related Projects
 - [Llama-3.2-3B-Instruct](https://huggingface.co/meta-llama/Llama-3.2-3B-Instruct)
 - [Llama-3.2-1B-Instruct](https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct)
 - [GPTQ](https://github.com/ModelCloud/GPTQModel.git)
