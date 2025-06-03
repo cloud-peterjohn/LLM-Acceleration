@@ -9,7 +9,7 @@ This project implements a comprehensive optimization pipeline for the Llama-3.2-
 
 The optimization pipeline consists of three main stages:
 
-### 1. QLoRA Fine-tuning (`qlora-finetune.ipynb`)
+### 1. QLoRA Fine-tuning ([`qlora-finetune.ipynb`](https://github.com/cloud-peterjohn/LLM-Acceleration/blob/main/qlora-finetune.ipynb))
 - **Purpose**: Fine-tune the base Llama-3.2-3B-Instruct model using QLoRA (Quantized Low-Rank Adaptation)
 - **Quantization**: 4-bit quantization with BitsAndBytesConfig (NF4, double quantization)
 - **LoRA Configuration**: 
@@ -27,7 +27,7 @@ The optimization pipeline consists of three main stages:
 
 After fine-tuning, the model is saved as [Llama3.2-3B-Instruct-QLoRA-finetuned](https://huggingface.co/zbyzby/Llama3.2-3B-Instruct-QLoRA-finetuned) on HuggingFace. 
 
-### 2. GPTQ Quantization (`gptq-quant.ipynb`)
+### 2. GPTQ Quantization ([`gptq-quant.ipynb`](https://github.com/cloud-peterjohn/LLM-Acceleration/blob/main/gptq-quant.ipynb))
 - **Purpose**: Apply GPTQ quantization to both fine-tuned 3B model and base 1B model
 - **Configuration**: 
   - 4-bit quantization
@@ -43,7 +43,7 @@ After fine-tuning, the model is saved as [Llama3.2-3B-Instruct-QLoRA-finetuned](
 
 After quantization, the models are saved as [Llama3.2-3B-Instruct-quantized](https://huggingface.co/zbyzby/Llama3.2-3B-Instruct-quantized) and [Llama-3.2-1B-Instruct-GPTQ-Quant](https://huggingface.co/zbyzby/Llama-3.2-1B-Instruct-GPTQ-Quant).
 
-### 3. VLLM Inference with Advanced Optimizations (`vllm-infer.ipynb`)
+### 3. VLLM Inference with Advanced Optimizations ([`vllm-infer.ipynb`](https://github.com/cloud-peterjohn/LLM-Acceleration/blob/main/vllm-infer.ipynb))
 - **Inference Engine**: VLLM with Xformers (For Turing GPUs, Flash Attention V2 is not supported, so Xformers is used instead)
 - **KV-Cache**: 8-bit quantization for memory efficiency
 - **Speculative Decoding**: Using 1B model as draft model with 5 speculative tokens (For T4 GPU, the memory is not enough to speculate decoding & CUDA compilation, so you can turn it on with GPUs with larger memory)
