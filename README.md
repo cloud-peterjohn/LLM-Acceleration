@@ -65,7 +65,6 @@ The optimized models are available on Hugging Face:
 0. **Base Model**: [meta-llama/Llama-3.2-1B-Instruct](https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct) and [meta-llama/Llama-3.2-3B-Instruct](https://huggingface.co/meta-llama/Llama-3.2-3B-Instruct)
    - Base Llama-3.2-3B-Instruct and Llama-3.2-1B-Instruct model for fine-tuning and quantization
 
-
 1. **Fine-tuned Base Model**: [zbyzby/Llama3.2-3B-Instruct-QLoRA-finetuned](https://huggingface.co/zbyzby/Llama3.2-3B-Instruct-QLoRA-finetuned)
    - QLoRA fine-tuned Llama-3.2-3B-Instruct model
 
@@ -86,8 +85,8 @@ The optimized pipeline achieves excellent performance metrics on T4 GPU in Colab
 
 ### Installation
 
-#### Run in Google Colab
-Nothing to install, just open the notebook `vllm-infer.ipynb` and run it. The environment is already set up with all dependencies installed.
+#### Run in Google Colab (**Recommanded**)
+Nothing to install, just open the notebook [`vllm-infer.ipynb`](https://github.com/cloud-peterjohn/LLM-Acceleration/blob/main/vllm-infer.ipynb) and run it. The environment is already set up with all dependencies installed.
 
 #### Run Locally
 If you want to run the notebooks locally, you must have CUDA 12.6+ and NVIDIA drivers installed, along with Python 3.12+ and PyTorch 2.70. The following steps will guide you through setting up the environment and installing the required packages.
