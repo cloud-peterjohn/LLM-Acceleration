@@ -161,11 +161,11 @@ Then you can run the notebooks in the environment.
 If you only want to test the speedup of inference throughput, you can skip the first two steps and directly run `vllm-infer.ipynb` with pre-quantized models on Huggingface.
 
 ## Platforms
-**Tesla T4 GPU**: NVIDIA Tesla T4 GPU is limited to 16GB memory and 7.5 computation capability, which is unsuitable for Flash Attention V2, VLLM V1, bf16, and fp8. So we have to use Xformers, VLLM V0, fp16.
-If you want to use Flash Attention V2, you should use Ampere (A100), Ada (RTX 4090), or Hopper (H100) series GPUs.
-If you want to use bf16, your GPU should have Tensor Core and support Brain Float 16 (bf16), such as Hopper, Ampere, Volta, Ada, L40 series GPUs or RTX A5000+. 
-If you want to use fp8, you GPU should have 8.0+ computation capability, such as Hopper, Ampere, Ada Lovelace, Blackwell series GPUs.
-If you want to use Speculative Decoding, you should use GPUs with larger memory than T4, which depends on the `num_speculative_tokens` parameter.
+- **Tesla T4 GPU**: NVIDIA Tesla T4 GPU is limited to 16GB memory and 7.5 computation capability, which is unsuitable for Flash Attention V2, VLLM V1, bf16, and fp8. So we have to use Xformers, VLLM V0, fp16.
+- If you want to use Flash Attention V2, you should use Ampere (A100), Ada (RTX 4090), or Hopper (H100) series GPUs.
+- If you want to use bf16, your GPU should have Tensor Core and support Brain Float 16 (bf16), such as Hopper, Ampere, Volta, Ada, L40 series GPUs or RTX A5000+. 
+- If you want to use fp8, you GPU should have 8.0+ computation capability, such as Hopper, Ampere, Ada Lovelace, Blackwell series GPUs.
+- If you want to use Speculative Decoding, you should use GPUs with larger memory than T4, which depends on the `num_speculative_tokens` parameter.
 
 ## Related Projects
 - [Llama-3.2-3B-Instruct](https://huggingface.co/meta-llama/Llama-3.2-3B-Instruct)
