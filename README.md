@@ -18,7 +18,7 @@ The optimization pipeline consists of three main stages:
   - Target modules: q_proj, k_proj, v_proj
   - Dropout: 0.05
 - **Dataset**: Training set of WikiText-2-raw-v1
-- **Training**: 3 epochs with gradient accumulation and 8-bit AdamW optimizer
+- **Training**: 8 epochs with gradient accumulation and 8-bit AdamW optimizer
 - **Key of QLoRA**
     - Implements parameter-efficient fine-tuning using Low-Rank Adaptation
     - Greatly reduces trainable parameters
